@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>轮播测试版</title>
+	<link rel="stylesheet" href="456.css">
+<style>
+#banner{
+	width: 1000px;
+	height: 500px;
+	background: #696969;
+	position: relative;
+	overflow: hidden;
+	border: 5px solid black;
+}
+img{
+	width: 1000px;
+	height: 500px;
+}
+#banner a{
+	position: absolute;
+}
+ul{
+	position: absolute;
+	top: 450px;
+	right: 100px;
+	z-index: 1000;
+}
+li{
+	width: 18px;
+	height: 18px;
+	border: 1px solid black;
+	border-radius: 10px;
+	display: inline-block;
+	margin-left: 13px;
+	/*text-align: center;*/
+	background: rgba(116,116,116,0.1);
+}
+li:hover{  /*鼠标移入变色*/
+	background: rgba(116,116,116,0.9);
+}
+a{
+	filter: opacity();
+}
+</style>
+</head>
+<body>
+
+<div id="banner">
+	<ul>
+		<li id="1-1" onmouseover="mouseover1()"></li>
+		<li id="1-2" onmouseover="mouseover2()"></li>
+		<li id="1-3" onmouseover="mouseover3()"></li>
+		<li id="1-4" onmouseover="mouseover4()"></li>
+	</ul> 
+	<a href="#" class="_blank"><img src="img/t1.jpg" title="第一张图片" alt="第一张图片，看到此段文字时，说明图片加载失败"></a>
+	<a href="#" class="_blank"><img src="img/t2.jpg" title="第二张图片" alt="第二张图片，看到此段文字时，说明图片加载失败"></a>
+	<a href="#" class="_blank"><img src="img/t3.jpg" title="第三张图片" alt="第三张图片，看到此段文字时，说明图片加载失败"></a>
+	<a href="#" class="_blank"><img src="img/t4.jpg" id="img4" title="第四张图片" alt="第四张图片，看到此段文字时，说明图片加载失败"></a>
+</div>
+<script>	
+var imc = document.getElementsByTagName('a');
+
+function lb(index){  //控制显示的函数
+	for(var i=0;i<imc.length;i++){    //先让所有的图片都不显示,用绝对定位都放到一起	
+		imc[i].style.filter = 'opacity(0)';
+	}
+	
+	for(var i = 0;i<21;i++){
+		(function (i){			
+			console.log(i);
+			setTimeout('as('+i+','+index+')',i*30);  //演示执行函数 
+			//console.log(index);	
+		})(i);	
+	}
+}
+function as (i,abc){  //这个是控制淡出的函数
+	imc[abc].style.filter = 'opacity('+i*0.05+')';
+	//console.log(index);
+}
+
+lb(0); //轮播初始化
+var count = 1; //先定义一个数字
+function contr(){  //控制轮播的函数
+	if(count==imc.length){//控制轮播到最后一张时，重新返回第一张。
+		count = 0;
+	}
+	lb(count);    //将该显示的第几张,传回控制显示的函数。
+	count++;
+	// alert(123);
+}
+setInterval(contr,3000); //定时器，此函数会每隔一段时间调用一次contr函数
+
+
+//应该有更好的解决方法来识别到底是触摸了那个按钮
+function mouseover1(){
+	lb(0);
+	clearInterval(time);
+	time = setInterval(contr,3000);
+}
+function mouseover2(){
+	lb(1);
+	clearInterval(time);
+	time = setInterval(contr,3000);
+}
+function mouseover3(){
+	lb(2);
+	clearInterval(time);
+	time = setInterval(contr,3000);
+}
+function mouseover4(){
+	lb(3);
+	clearInterval(time);
+	time = setInterval(contr,3000);
+}
+
+
+
+</script>
+</body>
+</html>
